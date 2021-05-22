@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
  crossorigin="anonymous">
 
- 
 <div class="container bg-light col-md-8 p-0">
 	<nav class="navbar navbar-expand-lg navbar-light bg-info">
 		<img src="assets/contactIcon.png" width="15px">
@@ -25,20 +24,17 @@
 					</button>
 				</div>
     </div>
-
 		<div class="col-md-12" *ngIf="filteredWithNameArray.length == 0
 			&&filteredWithEmailArray.length == 0 && filteredWithPhoneArray.length == 0 && showNoContactsFoundMessage">
 			<div class="alert alert-primary" role="alert">
 				<img class="text-white pb-1 pr-1" src="assets/warning.png" width="18px"> You have no contacts currently.
 			</div>
     </div>
-    
 		<div class="col-md-12" *ngIf="searchForm.value.filterText != '' && ContactList.length == 0 ">
 			<div class="alert alert-primary" role="alert">
 				<img class="text-white pb-1 pr-1" src="assets/warning.png" width="18px"> No contacts found.
 			</div>
 		</div>
-    
 		<div class="col-md-12" *ngIf="!showNoContactsFoundMessage">
 
 			<div *ngFor="let eachcontact of ContactList" class="w-100">
@@ -47,7 +43,7 @@
 						<h5 class="card-title">{{ eachcontact.name }} 
 							<div class=" float-right">
 								
-								<button type="button" class="btn btn-light text-danger"(click)="deleteConfirmation(eachcontact)">
+								<button type="button" class="btn btn-light text-danger" (click)="deleteConfirmation(eachcontact)">
                   					<img class="text-white pb-1 pr-1" src="assets/trashbin.png" width="18px">Delete
                   				</button>
 								<button type="button" class="btn btn-warning" (click)="editContact(eachcontact)">
@@ -61,9 +57,8 @@
 					</div>
 				</div>
 			</div>
-    </div>
+	</div>
   </div>
-
 	<div *ngIf="showContactForm" class="p-3" [formGroup]="contactForm">
 		<div class="container bg-white col-md-9 p-5">
 			<h5 *ngIf="contactForm.value.id == 0" class="font-weight-bold">Add New Contact</h5>
@@ -80,14 +75,14 @@
 				<label for="" class="col-xl-3 col-lg-4 col-md-5 col-form-label text-right">
 					<span class="text-danger">*</span>Email</label>
 				<div class="col-md-6">
-					<input class="form-control" type="text" formControlName="email">
+					<input class="form-control" type="text" formControlName="email" (input)="searchContactWithEmail()">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="" class="col-xl-3 col-lg-4 col-md-5 col-form-label text-right">
 					<span class="text-danger">*</span>Telephone</label>
 				<div class="col-md-6">
-					<input class="form-control" type="text" formControlName="phone">
+					<input class="form-control" type="text" formControlName="phone" (input)="searchContactWithPhone()">
 				</div>
 			</div>
 			
