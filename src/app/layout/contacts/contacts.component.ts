@@ -53,20 +53,20 @@ export class ContactsComponent implements OnInit {
       alert(this.returnMessage);
     }
     else{
-      if (this.contactForm.controls.phone.status != "VALID") {
+      if (this.contactForm.controls.phone.status != "VALID" && this.contactForm.value.phone !="") {
         this.returnMessage = "Phone number must be at least 6 digit number, start with +959.";
         alert(this.returnMessage);
       }
     }
   }
   public phoneOnChange() {
-    if (this.contactForm.controls.email.status != "VALID") {
-      this.returnMessage = "Please input with the right email format.";
+    if (this.contactForm.controls.phone.status != "VALID") {
+      this.returnMessage = "Phone number must be at least 6 digit number, start with +959.";
       alert(this.returnMessage);
     }
     else{
-      if (this.contactForm.controls.phone.status != "VALID") {
-        this.returnMessage = "Phone number must be at least 6 digit number, start with +959.";
+      if (this.contactForm.controls.email.status != "VALID" && this.contactForm.value.email !="") {
+        this.returnMessage = "Please input with the right email format.";
         alert(this.returnMessage);
       }
     }
