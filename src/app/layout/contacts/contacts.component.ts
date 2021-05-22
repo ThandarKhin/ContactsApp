@@ -34,6 +34,9 @@ export class ContactsComponent implements OnInit {
   public filteredWithNameArray= [];
   public filteredWithEmailArray= [];
   public filteredWithPhoneArray= [];
+  public showContactForm : boolean = false;
+  public returnMessage : string = "";
+  
 
 
   getAllContactList() {
@@ -120,6 +123,23 @@ export class ContactsComponent implements OnInit {
       alert(error);
     });
   }
+  addNewContact(){
+    this.showContactForm = true;
+  }
+  saveNewContact(){
+    
+    this.contactService.saveNewContact(this.contactForm.value).subscribe(x => {
+      this.contactForm.reset();
+      this.contactForm.controls["id"].setValue(0);
+      this.getAllContactList();
+      this.showContactForm = false;
+    }, 
+    (error) => {                            
+      console.error('Request failed with error')
+      alert(error);
+      }
+    );
+  }
   
   deleteConfirmation(row){
     alertify.confirm(
@@ -147,6 +167,7 @@ export class ContactsComponent implements OnInit {
     this.searchForm.reset();
     this.contactForm.reset();
     this.contactForm.controls["id"].setValue(0);
+    this.showContactForm = false;
     this.showNoContactsFoundMessage = false;
     this.getAllContactList();
   }
