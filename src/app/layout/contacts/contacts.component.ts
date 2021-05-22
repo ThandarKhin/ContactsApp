@@ -39,10 +39,38 @@ export class ContactsComponent implements OnInit {
   public emailSearchedCount = 0;
   public phoneSearchedCount = 0;
   public saveEditButtonEnable : boolean = true;
+
+  public phPattern = "^[+]{1}[9]{1}[5]{1}[9]{1}[0-9]{7,11}$";
+  public emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,50}";
+
   public retrieveLoading : boolean = false;
   public saveLoading : boolean = false;
   
 
+  public emailOnChange() {
+    if (this.contactForm.controls.email.status != "VALID") {
+      this.returnMessage = "Please input with the right email format.";
+      alert(this.returnMessage);
+    }
+    else{
+      if (this.contactForm.controls.phone.status != "VALID") {
+        this.returnMessage = "Phone number must be at least 6 digit number, start with +959.";
+        alert(this.returnMessage);
+      }
+    }
+  }
+  public phoneOnChange() {
+    if (this.contactForm.controls.email.status != "VALID") {
+      this.returnMessage = "Please input with the right email format.";
+      alert(this.returnMessage);
+    }
+    else{
+      if (this.contactForm.controls.phone.status != "VALID") {
+        this.returnMessage = "Phone number must be at least 6 digit number, start with +959.";
+        alert(this.returnMessage);
+      }
+    }
+  }
 
   getAllContactList() {
     this.retrieveLoading = true;
