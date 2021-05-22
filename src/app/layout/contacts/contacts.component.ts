@@ -39,10 +39,13 @@ export class ContactsComponent implements OnInit {
   public emailSearchedCount = 0;
   public phoneSearchedCount = 0;
   public saveEditButtonEnable : boolean = true;
+  public retrieveLoading : boolean = false;
+  public saveLoading : boolean = false;
   
 
 
   getAllContactList() {
+    this.retrieveLoading = true;
     this.showNoContactsFoundMessage = false;
     this.contactService.getAllContactList()
       .subscribe((result: any) => {
@@ -50,6 +53,7 @@ export class ContactsComponent implements OnInit {
           this.showNoContactsFoundMessage = true;
         }
         this.ContactList = result;
+        this.retrieveLoading = false;
       }, 
       (error) => {                            
         console.error('Request failed with error')
@@ -105,6 +109,7 @@ export class ContactsComponent implements OnInit {
   }
   
   filterContactWithPhone(){
+    this.retrieveLoading = true;
     this.contactService.filterContactWithPhone(this.searchForm.value.filterText)
     .subscribe((result: any) => {
       if (result.length > 0){
@@ -120,6 +125,7 @@ export class ContactsComponent implements OnInit {
           }
         }
       }
+      this.retrieveLoading = false;
     }, 
     (error) => {                            
       console.error('Request failed with error')
@@ -166,10 +172,12 @@ export class ContactsComponent implements OnInit {
 
   }
   saveNewContact(){
+    this.saveLoading = true;
     this.saveEditButtonEnable = true;
     this.contactService.saveNewContact(this.contactForm.value).subscribe(x => {
       this.contactForm.reset();
       this.contactForm.controls["id"].setValue(0);
+      this.saveLoading = false;
       this.getAllContactList();
       this.showContactForm = false;
     }, 
@@ -189,12 +197,14 @@ export class ContactsComponent implements OnInit {
   }
 
   updateContact(){
+    this.saveLoading = true;
     this.saveEditButtonEnable = true;
     this.contactService.updateContact(this.contactForm.value).subscribe(x => {
       this.contactForm.reset();
       this.contactForm.controls["id"].setValue(0);
       this.getAllContactList();
       this.showContactForm = false;
+      this.saveLoading = true;
     }, 
     (error) => {                            
       console.error('Request failed with error')
