@@ -36,6 +36,8 @@ export class ContactsComponent implements OnInit {
   public filteredWithPhoneArray= [];
   public showContactForm : boolean = false;
   public returnMessage : string = "";
+  public emailSearchedCount = 0;
+  public phoneSearchedCount = 0;
   
 
 
@@ -126,6 +128,37 @@ export class ContactsComponent implements OnInit {
   addNewContact(){
     this.showContactForm = true;
   }
+  
+  searchContactWithEmail(){
+    this.contactService.searchContactWithEmail(this.contactForm.value)
+    .subscribe((result: any) => {
+      this.emailSearchedCount = result.length;
+      if (this.emailSearchedCount > 0 ){
+        this.returnMessage = "Email already used by another user. Please try with another";
+        alert(this.returnMessage);
+      }
+    }, 
+    (error) => {                            
+      console.error('Request failed with error')
+      alert(error);
+    });
+  }
+
+  searchContactWithPhone(){
+    this.contactService.searchContactWithPhone(this.contactForm.value)
+    .subscribe((result: any) => {
+      this.phoneSearchedCount = result.length;
+      if (this.phoneSearchedCount > 0 ){
+        this.returnMessage = "Phone Number is already used by another user. Please try with another";
+        alert(this.returnMessage);
+      }
+    }, 
+    (error) => {                            
+      console.error('Request failed with error')
+      alert(error);
+    });
+
+  }
   saveNewContact(){
     
     this.contactService.saveNewContact(this.contactForm.value).subscribe(x => {
@@ -192,6 +225,4 @@ export class ContactsComponent implements OnInit {
     this.showNoContactsFoundMessage = false;
     this.getAllContactList();
   }
-
-
 }
