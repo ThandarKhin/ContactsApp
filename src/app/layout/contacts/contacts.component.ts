@@ -141,6 +141,27 @@ export class ContactsComponent implements OnInit {
     );
   }
   
+  editContact(data){
+    this.showContactForm = true;
+    this.contactForm.controls.id.setValue(data.id);
+    this.contactForm.controls.name.setValue(data.name);
+    this.contactForm.controls.email.setValue(data.email);
+    this.contactForm.controls.phone.setValue(data.phone);
+  }
+
+  updateContact(){
+    this.contactService.updateContact(this.contactForm.value).subscribe(x => {
+      this.contactForm.reset();
+      this.contactForm.controls["id"].setValue(0);
+      this.getAllContactList();
+      this.showContactForm = false;
+    }, 
+    (error) => {                            
+      console.error('Request failed with error')
+      alert(error);
+    });
+  }
+  
   deleteConfirmation(row){
     alertify.confirm(
       "Delete Contact", "Are you sure to delete " + "<strong>" + row.name+ "</strong>" + "?",
