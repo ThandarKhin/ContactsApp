@@ -38,6 +38,7 @@ export class ContactsComponent implements OnInit {
   public returnMessage : string = "";
   public emailSearchedCount = 0;
   public phoneSearchedCount = 0;
+  public saveEditButtonEnable : boolean = true;
   
 
 
@@ -127,13 +128,16 @@ export class ContactsComponent implements OnInit {
   }
   addNewContact(){
     this.showContactForm = true;
+    this.saveEditButtonEnable = true;
   }
   
   searchContactWithEmail(){
+    this.saveEditButtonEnable = true;
     this.contactService.searchContactWithEmail(this.contactForm.value)
     .subscribe((result: any) => {
       this.emailSearchedCount = result.length;
       if (this.emailSearchedCount > 0 ){
+        this.saveEditButtonEnable = false;
         this.returnMessage = "Email already used by another user. Please try with another";
         alert(this.returnMessage);
       }
@@ -145,10 +149,12 @@ export class ContactsComponent implements OnInit {
   }
 
   searchContactWithPhone(){
+    this.saveEditButtonEnable = true;
     this.contactService.searchContactWithPhone(this.contactForm.value)
     .subscribe((result: any) => {
       this.phoneSearchedCount = result.length;
       if (this.phoneSearchedCount > 0 ){
+        this.saveEditButtonEnable = false;
         this.returnMessage = "Phone Number is already used by another user. Please try with another";
         alert(this.returnMessage);
       }
@@ -160,7 +166,7 @@ export class ContactsComponent implements OnInit {
 
   }
   saveNewContact(){
-    
+    this.saveEditButtonEnable = true;
     this.contactService.saveNewContact(this.contactForm.value).subscribe(x => {
       this.contactForm.reset();
       this.contactForm.controls["id"].setValue(0);
@@ -183,6 +189,7 @@ export class ContactsComponent implements OnInit {
   }
 
   updateContact(){
+    this.saveEditButtonEnable = true;
     this.contactService.updateContact(this.contactForm.value).subscribe(x => {
       this.contactForm.reset();
       this.contactForm.controls["id"].setValue(0);

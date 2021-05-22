@@ -90,11 +90,11 @@
 				<button class="btn bg-light px-3 p-1"
 					(click)="cancel()"><img src="assets/cross.png" width="15px"> Cancel</button> &nbsp;
 				<button *ngIf="contactForm.value.id == 0" class="btn btn-success px-3 p-1"
-					[disabled]="!contactForm.valid"
+					[disabled]="!contactForm.valid || !saveEditButtonEnable"
 					(click)="saveNewContact(contactForm.value)"><img src="assets/save.png" width="15px"> Save</button>
 				
 				<button *ngIf="contactForm.value.id != 0" class="btn btn-success px-3 p-1"
-					[disabled]="!contactForm.valid"
+					[disabled]="!contactForm.valid || !saveEditButtonEnable"
 					(click)="updateContact(contactForm.value)"><img src="assets/save.png" width="15px"> Update</button>
 
 			</div>
