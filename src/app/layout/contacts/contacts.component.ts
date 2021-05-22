@@ -1,7 +1,8 @@
 import { Component, OnInit, LOCALE_ID, Inject, ViewChild, TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ContactService } from '../../services/contact.service'; 
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder , Validators } from '@angular/forms';
+import * as alertify from "alertifyjs";
 
 @Component({
   selector: 'app-contacts',
@@ -20,6 +21,12 @@ export class ContactsComponent implements OnInit {
   }
   public searchForm = this.fb.group({
     filterText: ['']
+  });
+  public contactForm = this.fb.group({
+    id: [0,],
+    name: ['', Validators.required], 
+    phone: ['', Validators.required],
+    email: ['', Validators.required]
   });
 
   public ContactList =  [];
@@ -113,4 +120,36 @@ export class ContactsComponent implements OnInit {
       alert(error);
     });
   }
+  
+  deleteConfirmation(row){
+    alertify.confirm(
+      "Delete Contact", "Are you sure to delete " + "<strong>" + row.name+ "</strong>" + "?",
+      ()=>{
+        this.deleteContact(row);
+      },
+      ()=> {}
+    );
+  }
+  deleteContact(row){    
+
+    this.contactService.deleteContact(row.id).subscribe(x => {
+        this.contactForm.reset();
+        this.contactForm.controls["id"].setValue(0);
+        this.getAllContactList();
+    }, 
+    (error) => {                            
+      console.error('Request failed with error')
+      alert(error);
+    });
+  }
+
+  cancel(){
+    this.searchForm.reset();
+    this.contactForm.reset();
+    this.contactForm.controls["id"].setValue(0);
+    this.showNoContactsFoundMessage = false;
+    this.getAllContactList();
+  }
+
+
 }

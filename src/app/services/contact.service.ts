@@ -27,25 +27,25 @@ export class ContactService extends BehaviorSubject<HttpClient>{
     return this.httpclient.get('http://localhost:3000/contacts?phone_like=' + searchData); 
   } 
 
-  // public searchContactWithName(searchData) {
-  //   return this.httpclient.get('http://localhost:3000/contacts?name=' + searchData); 
-  // } 
-  // public searchContactWithEmail(searchData) {
-  //   return this.httpclient.get('http://localhost:3000/contacts?email=' + searchData.email + '&&id_ne='+ searchData.id); 
-  // } 
-  // public searchContactWithPhone(searchData) {
-  //   return this.httpclient.get('http://localhost:3000/contacts?phone=' + searchData.phone + '&&id_ne='+ searchData.id); 
-  // }
+  public searchContactWithName(searchData) {
+    return this.httpclient.get('http://localhost:3000/contacts?name=' + searchData); 
+  } 
+  public searchContactWithEmail(searchData) {
+    return this.httpclient.get('http://localhost:3000/contacts?email=' + searchData.email + '&&id_ne='+ searchData.id); 
+  } 
+  public searchContactWithPhone(searchData) {
+    return this.httpclient.get('http://localhost:3000/contacts?phone=' + searchData.phone + '&&id_ne='+ searchData.id); 
+  }
 
-  // public deleteContact(id) {
-  //   return this.httpclient.delete('http://localhost:3000/contacts/' + id); 
-  // }
+  public deleteContact(id) {
+    return this.httpclient.delete('http://localhost:3000/contacts/' + id); 
+  }
   
-  // public saveNewContact(contact) {
-  //   return this.httpclient.post('http://localhost:3000/contacts/', contact, this.httpOptions); 
-  // }
+  public saveNewContact(contact) {
+    return this.httpclient.post('http://localhost:3000/contacts/', contact, this.httpOptions); 
+  }
 
-  // public updateContact(contact) {
-  //   return this.httpclient.put('http://localhost:3000/contacts/'+ contact.id, contact, this.httpOptions); 
-  // }
+  public updateContact(contact) {
+    return this.httpclient.put('http://localhost:3000/contacts/'+ contact.id, contact, this.httpOptions); 
+  }
 }
