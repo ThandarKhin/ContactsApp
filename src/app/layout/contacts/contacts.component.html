@@ -12,8 +12,9 @@
   
 		<div class="row col-md-12 py-4 pr-0">
 				<div class="col-md-6 input-group">
-					<div class="w-50" >
+					<div class="w-50" [formGroup]="searchForm">
 						<input type="text" class="form-control"
+						  formControlName="filterText" (input)="filterContact()"
 						 	placeholder="Search" aria-label="Search">
 					</div>
 				</div>

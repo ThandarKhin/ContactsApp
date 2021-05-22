@@ -17,15 +17,15 @@ export class ContactService extends BehaviorSubject<HttpClient>{
   public getAllContactList() {
     return this.httpclient.get('http://localhost:3000/contacts'); 
   }
-  // public filterContactWithName(searchData) {
-  //   return this.httpclient.get('http://localhost:3000/contacts?name_like=' + searchData); 
-  // } 
-  // public filterContactWithEmail(searchData) {
-  //   return this.httpclient.get('http://localhost:3000/contacts?email_like=' + searchData); 
-  // } 
-  // public filterContactWithPhone(searchData) {
-  //   return this.httpclient.get('http://localhost:3000/contacts?phone_like=' + searchData); 
-  // } 
+  public filterContactWithName(searchData) {
+    return this.httpclient.get('http://localhost:3000/contacts?name_like=' + searchData); 
+  } 
+  public filterContactWithEmail(searchData) {
+    return this.httpclient.get('http://localhost:3000/contacts?email_like=' + searchData); 
+  } 
+  public filterContactWithPhone(searchData) {
+    return this.httpclient.get('http://localhost:3000/contacts?phone_like=' + searchData); 
+  } 
 
   // public searchContactWithName(searchData) {
   //   return this.httpclient.get('http://localhost:3000/contacts?name=' + searchData); 
