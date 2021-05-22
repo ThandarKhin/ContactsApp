@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ContactsRoutingModule } from './contacts-routing.module';
 import { ContactsComponent } from './contacts.component';
+import { ContactService } from '../../services/contact.service';
 
 @NgModule({
   imports: [
@@ -10,6 +11,6 @@ import { ContactsComponent } from './contacts.component';
     ContactsRoutingModule,
   ],
   declarations: [ContactsComponent],
-  providers: [],
+  providers: [ContactService],
 })
 export class ContactsModule { }

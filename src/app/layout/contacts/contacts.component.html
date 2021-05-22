@@ -1,3 +1,62 @@
-<p>
-  contacts works!
-</p>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+ crossorigin="anonymous">
+
+ 
+<div class="container bg-light col-md-8 p-0">
+	<nav class="navbar navbar-expand-lg navbar-light bg-info">
+		<img src="assets/contactIcon.png" width="15px">
+		<a class="navbar-brand font-weight-bold pl-2" href="contacts" [routerLink]="['/contacts']">
+			Contacts 
+		</a>
+  </nav>
+  
+		<div class="row col-md-12 py-4 pr-0">
+				<div class="col-md-6 input-group">
+					<div class="w-50" >
+						<input type="text" class="form-control"
+						 	placeholder="Search" aria-label="Search">
+					</div>
+				</div>
+				<div class="col-md-6 justify-content-end input-group pr-1">
+					<button class="btn btn-success py-1 font-weight-bold" type="button">
+						<img class="text-white pb-1" src="assets/plus.png" width="15px"> New Contact
+					</button>
+				</div>
+    </div>
+    
+		<div class="col-md-12" *ngIf="showNoContactsFoundMessage">
+      <div class="alert alert-primary" role="alert">
+        <img class="text-white pb-1 pr-1" src="assets/warning.png" width="18px"> You have no contacts currently.
+      </div>
+    </div>
+    
+    
+		<div class="col-md-12" *ngIf="!showNoContactsFoundMessage">
+
+			<div *ngFor="let eachcontact of ContactList" class="w-100">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">{{ eachcontact.name }} 
+							<div class=" float-right">
+								
+								<button type="button" class="btn btn-light text-danger">
+									<img class="text-white pb-1 pr-1" src="assets/trashbin.png" width="18px">Delete
+								</button>
+								<button type="button" class="btn btn-warning">
+									<img class="text-white pb-1 pr-1" src="assets/edit.png" width="18px">Edit
+								</button>
+
+							</div>
+						</h5>
+						<h6 class="card-subtitle text-muted pt-2">{{ eachcontact.phone }} </h6>
+						<h6 class="card-subtitle text-muted pt-3">{{ eachcontact.email }} </h6>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		
+		
+	
+</div>
