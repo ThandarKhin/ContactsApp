@@ -54,12 +54,8 @@ export class ContactsComponent implements OnInit {
       alert(this.returnMessage);
     }
     else{
-      if (this.emailSearchedCount != 0){
-        this.saveEditButtonEnable = false;
-        this.returnMessage = "Email already used by another user. Please try with another";
-        alert(this.returnMessage);
-      }
-      else{
+      this.searchContactWithEmail();
+      if(this.emailSearchedCount==0){
         if (this.contactForm.controls.phone.status != "VALID" && this.contactForm.value.phone !="") {
           this.returnMessage = "Phone number must be at least 6 digit number, start with 09.";
           alert(this.returnMessage);
@@ -73,17 +69,11 @@ export class ContactsComponent implements OnInit {
       alert(this.returnMessage);
     }
     else{
-      if(this.phoneSearchedCount != 0){
-        this.saveEditButtonEnable = false;
-        this.returnMessage = "Phone Number already used by another user. Please try with another";
-        alert(this.returnMessage);
+      this.searchContactWithPhone();
+      if (this.phoneSearchedCount == 0){
+        this.searchContactWithEmail();
       }
-      if (this.emailSearchedCount != 0){
-        this.saveEditButtonEnable = false;
-        this.returnMessage = "Email already used by another user. Please try with another";
-        alert(this.returnMessage);
-      }
-      else{
+      if(this.emailSearchedCount== 0 && this.phoneSearchedCount==0){
         if (this.contactForm.controls.email.status != "VALID" && this.contactForm.value.email !="") {
           this.returnMessage = "Please input with the right email format.";
           alert(this.returnMessage);
