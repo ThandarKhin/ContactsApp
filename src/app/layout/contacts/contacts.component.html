@@ -5,36 +5,34 @@
 	<nav class="navbar navbar-expand-lg navbar-light bg-info">
 		<img src="assets/contactIcon.png" width="15px">
 		<a class="navbar-brand font-weight-bold pl-2" href="contacts" [routerLink]="['/contacts']">
-			Contacts 
+			Contacts
 		</a>
-  </nav>
-  <div *ngIf="!showContactForm">
+	</nav>
+	<div *ngIf="!showContactForm">
 
 		<div class="row col-md-12 py-4 pr-0">
-				<div class="col-md-6 input-group">
-					<div class="w-50" [formGroup]="searchForm">
-						<input type="text" class="form-control"
-						  formControlName="filterText" (input)="filterContact()"
-						 	placeholder="Search" aria-label="Search">
-					</div>
-					<div class="d-flex justify-content-center ml-3" *ngIf="retrieveLoading">
-						<div class="spinner-border" role="status">
-							<span class="sr-only">Loading...</span>
-						</div>
+			<div class="col-md-6 input-group">
+				<div class="w-50" [formGroup]="searchForm">
+					<input type="text" class="form-control" formControlName="filterText" (input)="filterContact()" placeholder="Search" aria-label="Search">
+				</div>
+				<div class="d-flex justify-content-center ml-3" *ngIf="retrieveLoading">
+					<div class="spinner-border" role="status">
+						<span class="sr-only">Loading...</span>
 					</div>
 				</div>
-				<div class="col-md-6 justify-content-end input-group pr-1">
-					<button class="btn btn-success py-1 font-weight-bold" type="button" (click)="addNewContact()">
-						<img class="text-white pb-1" src="assets/plus.png" width="15px"> New Contact
-					</button>
-				</div>
-    </div>
+			</div>
+			<div class="col-md-6 justify-content-end input-group pr-1">
+				<button class="btn btn-success py-1 font-weight-bold" type="button" (click)="addNewContact()">
+					<img class="text-white pb-1" src="assets/plus.png" width="15px"> New Contact
+				</button>
+			</div>
+		</div>
 		<div class="col-md-12" *ngIf="filteredWithNameArray.length == 0
 			&&filteredWithEmailArray.length == 0 && filteredWithPhoneArray.length == 0 && showNoContactsFoundMessage">
 			<div class="alert alert-primary" role="alert">
 				<img class="text-white pb-1 pr-1" src="assets/warning.png" width="18px"> You have no contacts currently.
 			</div>
-    </div>
+		</div>
 		<div class="col-md-12" *ngIf="searchForm.value.filterText != '' && ContactList.length == 0 ">
 			<div class="alert alert-primary" role="alert">
 				<img class="text-white pb-1 pr-1" src="assets/warning.png" width="18px"> No contacts found.
@@ -45,12 +43,12 @@
 			<div *ngFor="let eachcontact of ContactList" class="w-100">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">{{ eachcontact.name }} 
+						<h5 class="card-title">{{ eachcontact.name }}
 							<div class=" float-right">
-								
+
 								<button type="button" class="btn btn-light text-danger" (click)="deleteConfirmation(eachcontact)">
-                  					<img class="text-white pb-1 pr-1" src="assets/trashbin.png" width="18px">Delete
-                  				</button>
+									<img class="text-white pb-1 pr-1" src="assets/trashbin.png" width="18px">Delete
+								</button>
 								<button type="button" class="btn btn-warning" (click)="editContact(eachcontact)">
 									<img class="text-white pb-1 pr-1" src="assets/edit.png" width="18px">Edit
 								</button>
@@ -62,13 +60,13 @@
 					</div>
 				</div>
 			</div>
+		</div>
 	</div>
-  </div>
 	<div *ngIf="showContactForm" class="p-3" [formGroup]="contactForm">
 		<div class="container bg-white col-md-9 p-5">
 			<h5 *ngIf="contactForm.value.id == 0" class="font-weight-bold">Add New Contact</h5>
 			<h5 *ngIf="contactForm.value.id != 0" class="font-weight-bold">Update Contact</h5>
-			
+
 			<div class="d-flex justify-content-center ml-3" *ngIf="saveLoading">
 				<div class="spinner-border" role="status">
 					<span class="sr-only">Loading...</span>
@@ -76,40 +74,42 @@
 			</div>
 			<div class="form-group row pt-2">
 				<label for="" class="col-xl-3 col-lg-4 col-md-5 col-form-label text-right">
-				    <span class="text-danger">*</span>	Full Name</label>
+					<span class="text-danger">*</span> Full Name</label>
 				<div class="col-md-6">
-					<input class="form-control" type="text" formControlName="name" >
+					<input class="form-control" type="text" formControlName="name">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="" class="col-xl-3 col-lg-4 col-md-5 col-form-label text-right">
 					<span class="text-danger">*</span>Email</label>
 				<div class="col-md-6">
-					<input class="form-control" type="text" [pattern]="emailPattern" (change)="checkValidationForEmail()" (input)="searchContactWithEmail()" formControlName="email">
+					<input class="form-control" type="text" [pattern]="emailPattern" (change)="checkValidationForEmail()" (input)="searchContactWithEmail()"
+					 formControlName="email">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="" class="col-xl-3 col-lg-4 col-md-5 col-form-label text-right">
 					<span class="text-danger">*</span>Telephone</label>
 				<div class="col-md-6">
-					<input class="form-control" type="text" [pattern]="phPattern" (change)="checkValidationForPhone()" (input)="searchContactWithPhone()" formControlName="phone">
+					<input class="form-control" type="text" [pattern]="phPattern" (change)="checkValidationForPhone()" (input)="searchContactWithPhone()"
+					 formControlName="phone">
 				</div>
 			</div>
-			
+
 			<div class="text-right">
-				<button class="btn bg-light px-3 p-1"
-					(click)="cancel()"><img src="assets/cross.png" width="15px"> Cancel</button> &nbsp;
-				<button *ngIf="contactForm.value.id == 0" class="btn btn-success px-3 p-1"
-					[disabled]="!contactForm.valid || !saveEditButtonEnable || emailSearchedCount != 0 || phoneSearchedCount != 0"
-					(click)="saveNewContact(contactForm.value)"><img src="assets/save.png" width="15px"> Save</button>
-				
-				<button *ngIf="contactForm.value.id != 0" class="btn btn-success px-3 p-1"
-					[disabled]="!contactForm.valid || !saveEditButtonEnable || emailSearchedCount != 0 || phoneSearchedCount != 0"
-					(click)="updateContact(contactForm.value)"><img src="assets/save.png" width="15px"> Update</button>
+				<button class="btn bg-light px-3 p-1" (click)="cancel()">
+					<img src="assets/cross.png" width="15px"> Cancel</button> &nbsp;
+				<button *ngIf="contactForm.value.id == 0" class="btn btn-success px-3 p-1" [disabled]="!contactForm.valid || !saveEditButtonEnable || emailSearchedCount != 0 || phoneSearchedCount != 0"
+				 (click)="saveNewContact(contactForm.value)">
+					<img src="assets/save.png" width="15px"> Save</button>
+
+				<button *ngIf="contactForm.value.id != 0" class="btn btn-success px-3 p-1" [disabled]="!contactForm.valid || !saveEditButtonEnable || emailSearchedCount != 0 || phoneSearchedCount != 0"
+				 (click)="updateContact(contactForm.value)">
+					<img src="assets/save.png" width="15px"> Update</button>
 
 			</div>
 
 		</div>
-		
+
 	</div>
 </div>
