@@ -1,0 +1,46 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Selena Gomez",
+      "phone": "09730374744",
+      "email": "selena1234@gmail.com"
+    },
+    {
+      "id": 3,
+      "name": "Miley Cyrus",
+      "phone": "09730374755",
+      "email": "smileymiley@gmail.com"
+    },
+    {
+      "id": 5,
+      "name": "Rita Ora",
+      "phone": "097303747443",
+      "email": "rose@gmail.com"
+    },
+    {
+      "id": 8,
+      "name": "Lisa",
+      "phone": "09374834342",
+      "email": "ls@gmail.com"
+    },
+    {
+      "id": 9,
+      "name": "Adam Sandler",
+      "phone": "09730374733",
+      "email": "diana@gmail.com"
+    },
+    {
+      "id": 10,
+      "name": "Dua Lipa",
+      "phone": "097303747333",
+      "email": "dl@gmail.com"
+    },
+    {
+      "id": 11,
+      "name": "Hutch Mansell",
+      "phone": "0937483434",
+      "email": "hm@gmail.com"
+    }
+  ]
+}
