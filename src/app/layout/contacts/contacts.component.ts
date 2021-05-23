@@ -66,7 +66,7 @@ export class ContactsComponent implements OnInit {
           alert(this.errorMsgForPhone);
         }
         else{
-          if (this.contactForm.controls.phone.status != "VALID") {
+          if (this.contactForm.controls.phone.status != "VALID" && this.contactForm.value.phone != "") {
             this.errorMsgForPhone = "Phone number must be at least 6 digit number, start with 09.";
             alert(this.errorMsgForPhone);
           }
@@ -91,7 +91,7 @@ export class ContactsComponent implements OnInit {
           alert(this.errorMsgForEmail);
         }
         else{
-          if (this.contactForm.controls.email.status != "VALID") {
+          if (this.contactForm.controls.email.status != "VALID" && this.contactForm.value.email != "") {
             this.errorMsgForEmail = "Please input with the right email format.";
             alert(this.errorMsgForEmail);
           }
