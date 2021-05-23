@@ -52,7 +52,7 @@ export class ContactsComponent implements OnInit {
   public checkValidationForEmail(){
     
     if (this.emailSearchedCount != 0){
-      this.errorMsgForEmail = "Email already used by another user. Please try with another";
+      this.errorMsgForEmail = "Email already used by another user. Please try with another.";
       alert(this.errorMsgForEmail);
     }
     else{
@@ -62,7 +62,7 @@ export class ContactsComponent implements OnInit {
       }
       else{
         if (this.phoneSearchedCount != 0){
-          this.errorMsgForPhone = "Phone Number already used by another user. Please try with another";
+          this.errorMsgForPhone = "Phone Number already used by another user. Please try with another.";
           alert(this.errorMsgForPhone);
         }
         else{
@@ -87,7 +87,7 @@ export class ContactsComponent implements OnInit {
       }
       else{
         if (this.emailSearchedCount != 0){
-          this.errorMsgForEmail = "Email already used by another user. Please try with another";
+          this.errorMsgForEmail = "Email already used by another user. Please try with another.";
           alert(this.errorMsgForEmail);
         }
         else{
@@ -232,6 +232,7 @@ export class ContactsComponent implements OnInit {
       this.saveLoading = false;
       this.getAllContactList();
       this.showContactForm = false;
+      alertify.notify('Save Successful.', 'success', 3, function(){  console.log('dismissed'); });
     }, 
     (error) => {                            
       console.error('Request failed with error')
@@ -257,6 +258,7 @@ export class ContactsComponent implements OnInit {
       this.getAllContactList();
       this.showContactForm = false;
       this.saveLoading = false;
+      alertify.notify('Update Successful.', 'success', 3, function(){  console.log('dismissed'); });
     }, 
     (error) => {                            
       console.error('Request failed with error')
@@ -279,6 +281,7 @@ export class ContactsComponent implements OnInit {
         this.contactForm.reset();
         this.contactForm.controls["id"].setValue(0);
         this.getAllContactList();
+        alertify.notify('Delete Successful.', 'success', 3, function(){  console.log('dismissed'); });
     }, 
     (error) => {                            
       console.error('Request failed with error')
