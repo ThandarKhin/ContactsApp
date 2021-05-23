@@ -100,11 +100,11 @@
 				<button class="btn bg-light px-3 p-1"
 					(click)="cancel()"><img src="assets/cross.png" width="15px"> Cancel</button> &nbsp;
 				<button *ngIf="contactForm.value.id == 0" class="btn btn-success px-3 p-1"
-					[disabled]="!contactForm.valid || !saveEditButtonEnable"
+					[disabled]="!contactForm.valid || !saveEditButtonEnable || emailSearchedCount != 0 || phoneSearchedCount != 0"
 					(click)="saveNewContact(contactForm.value)"><img src="assets/save.png" width="15px"> Save</button>
 				
 				<button *ngIf="contactForm.value.id != 0" class="btn btn-success px-3 p-1"
-					[disabled]="!contactForm.valid || !saveEditButtonEnable"
+					[disabled]="!contactForm.valid || !saveEditButtonEnable || emailSearchedCount != 0 || phoneSearchedCount != 0"
 					(click)="updateContact(contactForm.value)"><img src="assets/save.png" width="15px"> Update</button>
 
 			</div>

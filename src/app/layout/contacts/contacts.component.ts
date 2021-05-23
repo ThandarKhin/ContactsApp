@@ -40,7 +40,8 @@ export class ContactsComponent implements OnInit {
   public phoneSearchedCount = 0;
   public saveEditButtonEnable : boolean = true;
 
-  public phPattern = "^[+]{1}[9]{1}[5]{1}[9]{1}[0-9]{7,11}$";
+  // public phPattern = "^[+]{1}[9]{1}[5]{1}[9]{1}[0-9]{7,11}$";
+  public phPattern = "^[0]{1}[9]{1}[0-9]{7,11}$";
   public emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,50}";
 
   public retrieveLoading : boolean = false;
@@ -53,21 +54,40 @@ export class ContactsComponent implements OnInit {
       alert(this.returnMessage);
     }
     else{
-      if (this.contactForm.controls.phone.status != "VALID" && this.contactForm.value.phone !="") {
-        this.returnMessage = "Phone number must be at least 6 digit number, start with +959.";
+      if (this.emailSearchedCount != 0){
+        this.saveEditButtonEnable = false;
+        this.returnMessage = "Email already used by another user. Please try with another";
         alert(this.returnMessage);
+      }
+      else{
+        if (this.contactForm.controls.phone.status != "VALID" && this.contactForm.value.phone !="") {
+          this.returnMessage = "Phone number must be at least 6 digit number, start with 09.";
+          alert(this.returnMessage);
+        }
       }
     }
   }
   public phoneOnChange() {
     if (this.contactForm.controls.phone.status != "VALID") {
-      this.returnMessage = "Phone number must be at least 6 digit number, start with +959.";
+      this.returnMessage = "Phone number must be at least 6 digit number, start with 09.";
       alert(this.returnMessage);
     }
     else{
-      if (this.contactForm.controls.email.status != "VALID" && this.contactForm.value.email !="") {
-        this.returnMessage = "Please input with the right email format.";
+      if(this.phoneSearchedCount != 0){
+        this.saveEditButtonEnable = false;
+        this.returnMessage = "Phone Number already used by another user. Please try with another";
         alert(this.returnMessage);
+      }
+      if (this.emailSearchedCount != 0){
+        this.saveEditButtonEnable = false;
+        this.returnMessage = "Email already used by another user. Please try with another";
+        alert(this.returnMessage);
+      }
+      else{
+        if (this.contactForm.controls.email.status != "VALID" && this.contactForm.value.email !="") {
+          this.returnMessage = "Please input with the right email format.";
+          alert(this.returnMessage);
+        }
       }
     }
   }
@@ -123,8 +143,8 @@ export class ContactsComponent implements OnInit {
         this.filteredWithEmailArray = result;
         for (let i = 0; i < this.filteredWithEmailArray.length; i++) {
 
-          var index = this.filteredWithNameArray.findIndex(x => x.id == this.filteredWithEmailArray[i].id)
-          if (index == -1){
+          var findDuplicateIdInFilterNameAry = this.filteredWithNameArray.findIndex(x => x.id == this.filteredWithEmailArray[i].id);
+          if (findDuplicateIdInFilterNameAry == -1){
             this.ContactList.push(this.filteredWithEmailArray[i]);
           }
         }
@@ -145,10 +165,10 @@ export class ContactsComponent implements OnInit {
         
         for (let i = 0; i < this.filteredWithPhoneArray.length; i++) {
 
-          var indexInName = this.filteredWithNameArray.findIndex(x => x.id == this.filteredWithPhoneArray[i].id)
-          var indexInEmail = this.filteredWithEmailArray.findIndex(x => x.id == this.filteredWithPhoneArray[i].id)
+          var findDuplicateIdInFilterNameAry = this.filteredWithNameArray.findIndex(x => x.id == this.filteredWithPhoneArray[i].id)
+          var findDuplicateIdInFilterEmailAry = this.filteredWithEmailArray.findIndex(x => x.id == this.filteredWithPhoneArray[i].id)
           
-          if (indexInName == -1 && indexInEmail == -1){
+          if (findDuplicateIdInFilterNameAry == -1 && findDuplicateIdInFilterEmailAry == -1){
             this.ContactList.push(this.filteredWithPhoneArray[i]);
           }
         }
