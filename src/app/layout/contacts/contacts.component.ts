@@ -46,40 +46,88 @@ export class ContactsComponent implements OnInit {
 
   public retrieveLoading : boolean = false;
   public saveLoading : boolean = false;
+  public errorMsgForEmail : string = "";
+  public errorMsgForPhone : string = "";
   
-
-  public emailOnChange() {
-    if (this.contactForm.controls.email.status != "VALID") {
-      this.returnMessage = "Please input with the right email format.";
-      alert(this.returnMessage);
+  public checkValidationForEmail(){
+    
+    if (this.emailSearchedCount != 0){
+      this.errorMsgForEmail = "Email already used by another user. Please try with another";
+      alert(this.errorMsgForEmail);
     }
     else{
-      this.searchContactWithEmail();
-      if(this.emailSearchedCount==0){
-        if (this.contactForm.controls.phone.status != "VALID" && this.contactForm.value.phone !="") {
-          this.returnMessage = "Phone number must be at least 6 digit number, start with 09.";
-          alert(this.returnMessage);
+      if (this.contactForm.controls.email.status != "VALID") {
+        this.errorMsgForEmail = "Please input with the right email format.";
+        alert(this.errorMsgForEmail);
+      }
+      else{
+        if (this.phoneSearchedCount != 0){
+          this.errorMsgForPhone = "Phone Number already used by another user. Please try with another";
+          alert(this.errorMsgForPhone);
+        }
+        else{
+          if (this.contactForm.controls.phone.status != "VALID") {
+            this.errorMsgForPhone = "Phone number must be at least 6 digit number, start with 09.";
+            alert(this.errorMsgForPhone);
+          }
         }
       }
     }
   }
-  public phoneOnChange() {
-    if (this.contactForm.controls.phone.status != "VALID") {
-      this.returnMessage = "Phone number must be at least 6 digit number, start with 09.";
-      alert(this.returnMessage);
+  public checkValidationForPhone(){
+    if (this.phoneSearchedCount != 0){
+      this.errorMsgForPhone = "Phone Number already used by another user. Please try with another";
+      alert(this.errorMsgForPhone);
     }
     else{
-      this.searchContactWithPhone();
-      if (this.phoneSearchedCount == 0){
-        this.searchContactWithEmail();
+        
+      if (this.contactForm.controls.phone.status != "VALID") {
+        this.errorMsgForPhone = "Phone number must be at least 6 digit number, start with 09.";
+        alert(this.errorMsgForPhone);
       }
-      if(this.emailSearchedCount== 0 && this.phoneSearchedCount==0){
-        if (this.contactForm.controls.email.status != "VALID" && this.contactForm.value.email !="") {
-          this.returnMessage = "Please input with the right email format.";
-          alert(this.returnMessage);
+      else{
+        if (this.emailSearchedCount != 0){
+          this.errorMsgForEmail = "Email already used by another user. Please try with another";
+          alert(this.errorMsgForEmail);
+        }
+        else{
+          if (this.contactForm.controls.email.status != "VALID") {
+            this.errorMsgForEmail = "Please input with the right email format.";
+            alert(this.errorMsgForEmail);
+          }
         }
       }
     }
+  }
+  searchContactWithEmail(){
+    this.saveEditButtonEnable = true;
+    this.contactService.searchContactWithEmail(this.contactForm.value)
+    .subscribe((result: any) => {
+      this.emailSearchedCount = result.length;
+      if (this.emailSearchedCount > 0 ){
+        this.saveEditButtonEnable = false;
+      }
+    }, 
+    (error) => {                            
+      console.error('Request failed with error')
+      alert(error);
+    });
+  }
+
+  searchContactWithPhone(){
+    this.saveEditButtonEnable = true;
+    this.contactService.searchContactWithPhone(this.contactForm.value)
+    .subscribe((result: any) => {
+      this.phoneSearchedCount = result.length;
+      if (this.phoneSearchedCount > 0 ){
+        this.saveEditButtonEnable = false;
+      }
+    }, 
+    (error) => {                            
+      console.error('Request failed with error')
+      alert(error);
+    });
+
   }
 
   getAllContactList() {
@@ -175,40 +223,6 @@ export class ContactsComponent implements OnInit {
     this.saveEditButtonEnable = true;
   }
   
-  searchContactWithEmail(){
-    this.saveEditButtonEnable = true;
-    this.contactService.searchContactWithEmail(this.contactForm.value)
-    .subscribe((result: any) => {
-      this.emailSearchedCount = result.length;
-      if (this.emailSearchedCount > 0 ){
-        this.saveEditButtonEnable = false;
-        this.returnMessage = "Email already used by another user. Please try with another";
-        alert(this.returnMessage);
-      }
-    }, 
-    (error) => {                            
-      console.error('Request failed with error')
-      alert(error);
-    });
-  }
-
-  searchContactWithPhone(){
-    this.saveEditButtonEnable = true;
-    this.contactService.searchContactWithPhone(this.contactForm.value)
-    .subscribe((result: any) => {
-      this.phoneSearchedCount = result.length;
-      if (this.phoneSearchedCount > 0 ){
-        this.saveEditButtonEnable = false;
-        this.returnMessage = "Phone Number is already used by another user. Please try with another";
-        alert(this.returnMessage);
-      }
-    }, 
-    (error) => {                            
-      console.error('Request failed with error')
-      alert(error);
-    });
-
-  }
   saveNewContact(){
     this.saveLoading = true;
     this.saveEditButtonEnable = true;

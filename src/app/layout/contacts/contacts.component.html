@@ -85,14 +85,14 @@
 				<label for="" class="col-xl-3 col-lg-4 col-md-5 col-form-label text-right">
 					<span class="text-danger">*</span>Email</label>
 				<div class="col-md-6">
-					<input class="form-control" type="text" [pattern]="emailPattern" (change)="emailOnChange()"  formControlName="email">
+					<input class="form-control" type="text" [pattern]="emailPattern" (change)="checkValidationForEmail()" (input)="searchContactWithEmail()" formControlName="email">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="" class="col-xl-3 col-lg-4 col-md-5 col-form-label text-right">
 					<span class="text-danger">*</span>Telephone</label>
 				<div class="col-md-6">
-					<input class="form-control" type="text" [pattern]="phPattern" (change)="phoneOnChange()" formControlName="phone">
+					<input class="form-control" type="text" [pattern]="phPattern" (change)="checkValidationForPhone()" (input)="searchContactWithPhone()" formControlName="phone">
 				</div>
 			</div>
 			
