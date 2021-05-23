@@ -256,7 +256,7 @@ export class ContactsComponent implements OnInit {
       this.contactForm.controls["id"].setValue(0);
       this.getAllContactList();
       this.showContactForm = false;
-      this.saveLoading = true;
+      this.saveLoading = false;
     }, 
     (error) => {                            
       console.error('Request failed with error')
